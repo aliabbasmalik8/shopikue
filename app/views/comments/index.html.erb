@@ -1,0 +1,19 @@
+<h1>Comments</h1>
+<table>
+  <thead>
+    <tr>
+      <th>Body</th>
+      <th>Rating</th>
+      <th>User</th>
+      <th>Reply</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+    <tbody>
+      <%= nested_comments @comments.arrange(:order => :created_at)%>
+    </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Comment', new_product_comment_path %>
