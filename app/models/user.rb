@@ -5,6 +5,8 @@ class User < ApplicationRecord
   enum role: [:buyer, :moderator, :admin]
 
   has_many :comments
+  has_many :orders
+  
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable,
          :confirmable, :lockable, :timeoutable, :trackable

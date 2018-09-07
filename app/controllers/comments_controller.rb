@@ -74,13 +74,10 @@ class CommentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def comment_params
-      
-      puts params.inspect
-
-      if params[:comment][:ancestry]
-        params.require(:comment).permit(:body, :rating, :ancestry).merge(:user_id => current_user.id)
-      else
+      if params[:comment][:ancestry].empty?
         params.require(:comment).permit(:body, :rating).merge(:user_id => current_user.id)
+      else
+        params.require(:comment).permit(:body, :rating, :ancestry).merge(:user_id => current_user.id)
       end
     end
 
