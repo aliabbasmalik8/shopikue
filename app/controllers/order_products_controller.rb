@@ -4,7 +4,19 @@ class OrderProductsController < ApplicationController
   # GET /order_products
   # GET /order_products.json
   def index
-    @order_products = OrderProduct.all
+    if current_user
+      @order_products = OrderProduct.all
+    else
+      @order_products = []
+      if !cookies[:add_to_cart].nil?
+        JSON.parse(cookies[:add_to_cart]).each do |cookie|
+          arr = []
+          arr.push(Product.find(cookie["product_id"].to_i))
+          arr.push(cookie["quantity"].to_i)
+          @order_products << arr
+        end
+      end
+    end
   end
 
   # GET /order_products/1
@@ -61,42 +73,13 @@ class OrderProductsController < ApplicationController
     end
   end
 
-
-  #****************************************************
-  def add_to_cart_custom
-    puts order_product_params
-    puts "*********************************"
-    OrderProduct.create!(order_product_params)
-    respond_to do |format|
-      format.js {flash[:notice]= 'Add to cart Successfully.'}
-    end
-  end
-  #****************************************************
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_order_product
       @order_product = OrderProduct.find(params[:id])
     end
 
-
     def order_product_params
-      check_order_exist=Order.where(user_id: current_user.id, status: 0).exists?
-      if check_order_exist
-        @id_of_order=Order.where(user_id: current_user.id, status: 0).last.id
-        if params[:order_product] && params[:order_product][:quantity].empty?
-          params.require(:order_product).permit(:product_id).merge(:order_id => id_of_order)
-        else
-          params.require(:order_product).permit(:quantity,:product_id).merge(:order_id => @id_of_order)
-        end
-      else
-        @order = current_user.orders.new
-        @order.save
-        if params[:order_product][:quantity].empty?
-          params.require(:order_product).permit(:product_id).merge(:order_id => @order.id)
-        else
-          params.require(:order_product).permit(:quantity,:product_id).merge(:order_id => @order.id)
-        end
-      end
+      params.require(:order_product).permit(:quantity)
     end
-    
 end

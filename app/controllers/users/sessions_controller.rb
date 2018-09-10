@@ -9,9 +9,15 @@ class Users::SessionsController < Devise::SessionsController
   # end
 
   # POST /resource/sign_in
-  # def create
-  #   super
-  # end
+  def create
+    super
+    if(cookies[:add_to_cart])
+      JSON.parse(cookies[:add_to_cart]).each do |cookie|
+        Order.add_to_cart(cookie["product_id"].to_i,cookie["quantity"].to_i,current_user)
+      end
+    end
+    cookies.delete :add_to_cart
+  end
 
   # DELETE /resource/sign_out
   # def destroy

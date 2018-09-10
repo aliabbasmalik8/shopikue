@@ -3,28 +3,48 @@
 <table>
   <thead>
     <tr>
-      <th>Quantity</th>
-      <th>Total</th>
-      <th>Discount</th>
-      <th>Order</th>
-      <th>Product</th>
+      <th>title</th>
+      <th>description</th>
+      <th>price</th>
+      <th>catagory</th>
+      <th>rating</th>
+      <th>quantity</th>
+      <th>total</th>
+      <th>Order total</th>
       <th colspan="3"></th>
     </tr>
   </thead>
 
   <tbody>
-    <% @order_products.each do |order_product| %>
-      <tr>
-        <td><%= order_product.quantity %></td>
-        <td><%= order_product.total %></td>
-        <td><%= order_product.discount %></td>
-        <td><%= order_product.order %></td>
-        <td><%= order_product.product %></td>
-        <td><%= link_to 'Show', order_product %></td>
-        <td><%= link_to 'Edit', edit_order_product_path(order_product) %></td>
-        <td><%= link_to 'Destroy', order_product, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+    <% if current_user %>
+       <% @order_products.each do |order_product| %>
+        <tr>
+          <td><%= order_product.product.title %></td>
+          <td><%= order_product.product.description %></td>
+          <td><%= order_product.product.price %></td>
+          <td><%= order_product.product.catagory %></td>
+          <td><%= order_product.product.rating %></td>
+          <td><%= order_product.quantity %></td>
+          <td><%= order_product.total %></td>
+          <td><%= order_product.order.total %></td>
+          <td><%= link_to 'Show', order_product %></td>
+          <td><%= link_to 'Edit', edit_order_product_path(order_product) %></td>
+          <td><%= link_to 'Destroy', order_product, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% end %>
+    <% else %>
+      <% @order_products.each do |order_product| %>
+        <tr>
+          <td><%= order_product.product[0][0].title %></td>
+          <td><%= order_product.product[0][0].description %></td>
+          <td><%= order_product.product[0][0].price %></td>
+          <td><%= order_product.product[0][0].catagory %></td>
+          <td><%= order_product.product[0][0].rating %></td>
+          <td><%= order_product.product[1][0] %></td>
+        </tr>
+      <% end %>
     <% end %>
+   
   </tbody>
 </table>
 

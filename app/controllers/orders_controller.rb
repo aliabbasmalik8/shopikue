@@ -61,18 +61,29 @@ class OrdersController < ApplicationController
     end
   end
 
-  def add_to_cart
-    check_order_exist=Order.where(user_id: current_user.id, status: 0).exists?
-    if check_order_exist
-      id_of_order=Order.where(user_id: current_user.id, status: 0).last.id
-      OrderProduct.create!(order_id: id_of_order, product_id: params[:product_id])
-      respond_to do |format|
-        format.js {flash[:notice]= 'Add to cart Successfully.'}
-      end
+  def add_to_cookie(product_id,quantity)
+    a=[]
+    if cookies[:add_to_cart].nil?
+      a << {product_id: product_id, quantity: quantity}
+      cookies[:add_to_cart] = JSON.generate(a)
     else
-      @order = current_user.orders.new
-      @order.save
-      OrderProduct.create(order_id: @order.id, product_id: params[:product_id])
+      x = JSON.parse(cookies[:add_to_cart])
+      x << {product_id: product_id, quantity: quantity}
+      cookies[:add_to_cart] = JSON.generate(x)
+    end
+  end
+
+  def add_cart
+  end
+
+  def add_to_cart
+    if !current_user
+      add_to_cookie(params[:product_id],params[:quantity])
+    else
+      Order.add_to_cart(params[:product_id],params[:quantity],current_user)
+    end
+    respond_to do |format|
+      format.html {redirect_to products_url, notice: 'Add to cart Successfully.'}
     end
   end
   
@@ -81,9 +92,4 @@ class OrdersController < ApplicationController
     def set_order
       @order = Order.find(params[:id])
     end
-
-    # Never trust parameters from the scary internet, only allow the white list through.
-    # def order_params
-    #   params.require(:order).permit!
-    # end
 end

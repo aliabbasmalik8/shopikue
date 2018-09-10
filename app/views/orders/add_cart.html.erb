@@ -1,0 +1,7 @@
+<%= form_tag(add_to_cart_path) do%>
+  <div class="field">
+    <%= label_tag :quantity %>
+    <%= number_field_tag :quantity %>
+  </div>
+  <%= submit_tag 'Add to Cart' %>
+<% end %>
