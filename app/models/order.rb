@@ -21,20 +21,25 @@ class Order < ApplicationRecord
 
       if check_order_product_exist
         op=OrderProduct.where(order_id: id_of_order, product_id: product_id)
-        puts (op[0].quantity).class
+
         latest_quantity= (op[0].quantity) + quantity.to_i
+
         total=product.price*latest_quantity
+
         op.update(quantity: latest_quantity, total: total)
+
         update_order_total(id_of_order)
       else
-        total=product.total*quantity.to_i
+
+        total=product.price*quantity.to_i
         OrderProduct.create!(order_id: id_of_order, product_id: product_id,quantity: quantity, total: total)
+
       end
 
     else
       @order = current_user.orders.new
       @order.save
-      total=product.total*quantity.to_i
+      total=product.price*quantity.to_i
       OrderProduct.create(order_id: @order.id, product_id: product_id,quantity: quantity, total: total)
     end
 

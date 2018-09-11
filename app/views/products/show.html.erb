@@ -1,39 +1,44 @@
-<p>
-  <strong>Title:</strong>
-  <%= @product.title %>
-</p>
+<div class="container ">
+  <div class="col-md-12">
+    <p>
+      <strong>Title:</strong>
+      <%= @product.title %>
+    </p>
 
-<p>
-  <strong>Description:</strong>
-  <%= @product.description %>
-</p>
+    <p>
+      <strong>Description:</strong>
+      <%= @product.description %>
+    </p>
 
-<p>
-  <strong>Price:</strong>
-  <%= @product.price %>
-</p>
+    <p>
+      <strong>Price:</strong>
+      <%= @product.price %>
+    </p>
 
-<p>
-  <strong>Purchasing price:</strong>
-  <%= @product.purchasing_price %>
-</p>
+    <p>
+      <strong>Purchasing price:</strong>
+      <%= @product.purchasing_price %>
+    </p>
 
-<p>
-  <strong>Discount:</strong>
-  <%= @product.discount %>
-</p>
+    <p>
+      <strong>Discount:</strong>
+      <%= @product.discount %>
+    </p>
 
-<p>
-  <strong>Catagory:</strong>
-  <%= @product.catagory %>
-</p>
+    <p>
+      <strong>Catagory:</strong>
+      <%= @product.catagory %>
+    </p>
 
-<p>
-  <strong>Rating:</strong>
-  <%= @product.rating %>
-</p>
+    <p>
+      <strong>Rating:</strong>
+      <%= @product.rating %>
+    </p>
 
-<%= link_to 'Edit', edit_product_path(@product) %> |
-<%= link_to 'Back', products_path %>
+    <%= link_to 'Edit', edit_product_path(@product) %> |
+    <%= link_to 'Back', products_path %>
 
-<%= render 'images/images' %>
+    <%= render 'images/images' %>
+
+  </div>
+</div>

@@ -1,5 +1,5 @@
 class OrderProductsController < ApplicationController
-  before_action :set_order_product, only: [:show, :edit, :update, :destroy]
+  before_action :set_order_product, only: [:show]
 
   # GET /order_products
   # GET /order_products.json
@@ -31,6 +31,11 @@ class OrderProductsController < ApplicationController
 
   # GET /order_products/1/edit
   def edit
+    if current_user
+      @order_product = OrderProduct.find(params[:id])
+    else
+
+    end
   end
 
   # POST /order_products
@@ -52,13 +57,27 @@ class OrderProductsController < ApplicationController
   # PATCH/PUT /order_products/1
   # PATCH/PUT /order_products/1.json
   def update
-    respond_to do |format|
-      if @order_product.update(order_product_params)
-        format.html { redirect_to @order_product, notice: 'Order product was successfully updated.' }
-        format.json { render :show, status: :ok, location: @order_product }
-      else
-        format.html { render :edit }
-        format.json { render json: @order_product.errors, status: :unprocessable_entity }
+    if current_user
+      @order_product = OrderProduct.find(params[:id])
+      product=Product.find(@order_product.product_id)
+      quantity=(params[:order_product][:quantity]).to_i
+      total=(product.price)*quantity
+      respond_to do |format|
+        if @order_product.update(quantity: quantity, total: total)
+          format.html { redirect_to @order_product, notice: 'Order product was successfully updated.' }
+          format.json { render :show, status: :ok, location: @order_product }
+        else
+          format.html { render :edit }
+          format.json { render json: @order_product.errors, status: :unprocessable_entity }
+        end
+      end
+    else
+      x = JSON.parse(cookies[:add_to_cart])
+      x.delete_if { |h| h["product_id"] == params[:id] }
+      x << {product_id: params[:id], quantity: params[:quantity]}
+      cookies[:add_to_cart] = JSON.generate(x)
+      respond_to do |format|
+        format.html { redirect_to order_products_path, notice: 'Order product was successfully updated.' }
       end
     end
   end
@@ -66,7 +85,14 @@ class OrderProductsController < ApplicationController
   # DELETE /order_products/1
   # DELETE /order_products/1.json
   def destroy
-    @order_product.destroy
+    if current_user
+      @order_product = OrderProduct.find(params[:id])
+      @order_product.destroy
+    else
+      x = JSON.parse(cookies[:add_to_cart])
+      x.delete_if { |h| h["product_id"] == params[:id] }
+      cookies[:add_to_cart] = JSON.generate(x)
+    end
     respond_to do |format|
       format.html { redirect_to order_products_url, notice: 'Order product was successfully destroyed.' }
       format.json { head :no_content }

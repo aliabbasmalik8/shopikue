@@ -11,42 +11,42 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label :title %>
-    <%= form.text_field :title %>
+  <div class="field form-group col-7">
+    <%= form.label :title %> <br />
+    <%= form.text_field :title, class:"form-control" %>
   </div>
 
-  <div class="field">
-    <%= form.label :description %>
-    <%= form.text_area :description %>
+  <div class="field form-group col-7">
+    <%= form.label :description %> <br />
+    <%= form.text_area :description, class:"form-control" %>
   </div>
 
-  <div class="field">
-    <%= form.label :price %>
-    <%= form.text_field :price %>
+  <div class="field form-group col-7">
+    <%= form.label :price %> <br />
+    <%= form.text_field :price, class:"form-control integer" %>
   </div>
 
-  <div class="field">
-    <%= form.label :purchasing_price %>
-    <%= form.text_field :purchasing_price %>
+  <div class="field form-group col-7">
+    <%= form.label :purchasing_price %> <br />
+    <%= form.text_field :purchasing_price, class:"form-control" %>
   </div>
 
-  <div class="field">
-    <%= form.label :discount %>
-    <%= form.text_field :discount %>
+  <div class="field form-group col-7">
+    <%= form.label :discount %> <br />
+    <%= form.text_field :discount, class:"form-control" %>
   </div>
 
-  <div class="field">
-    <%= form.label :catagory %>
-    <%= form.text_field :catagory %>
+  <div class="field form-group col-7">
+    <%= form.label :catagory %> <br />
+    <%= form.text_field :catagory, class:"form-control" %>
   </div>
 
-  <div class="field">
-    <%= form.label :rating %>
-    <%= form.number_field :rating %>
+  <div class="field form-group col-7">
+    <%= form.label :rating %> <br />
+    <%= form.number_field :rating, class:"form-control" %>
   </div>
 
-  <div class="actions">
-    <%= form.submit %>
+  <div class="actions orm-group col-7 ">
+    <%= form.submit  %>
   </div>
 <% end %>
