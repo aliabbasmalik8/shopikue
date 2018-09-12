@@ -1,0 +1,12 @@
+<% unless root.nil? %>
+  <div class="card">
+    <div class="card-body">
+      <div class="well">
+        <%= root.body %>
+        <%= link_to 'reply', new_product_comment_path(:ancestry => root) %>
+        <%= link_to 'Edit', edit_product_comment_path(params[:product_id],root) %>
+        <%= link_to 'Destroy', product_comment_path(params[:product_id],root), method: :delete, data: { confirm: 'Are you sure?' } %>
+      </div>  
+    </div>
+  </div>
+<% end%>

@@ -1,0 +1,15 @@
+<div class="container">
+<br>
+ <div class="card-columns">
+  <% @products.each do |product| %>
+      <div class="card">
+        <%= link_to image_tag(product.first_image_url.to_s,:align=>"middle",class: 'card-img-top img-fluid',style:"height:300px"), add_cart_path(product) %>
+        <div class="card-block">
+          <h4 class="card-title" align="center"><%= product.title %> | <%= product.price %></h4>
+          <p class="card-text" align="center"><%= product.description %></p>
+          <button class="form-control"><%= link_to 'Add To Cart', add_cart_path(product)%></button>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

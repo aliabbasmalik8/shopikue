@@ -11,12 +11,13 @@
     </thead>
 
     <tbody>
+      <% order_total=0 %>
       <% if current_user %>
         <% @order_products.each do |order_product| %>
           <tr>
             <td data-th="Product">
               <div class="row">
-                <div class="col-sm-3 hidden-xs"><img src="http://placehold.it/100x100" alt="..." class="img-responsive"/></div>
+                <div class="col-sm-3 hidden-xs"><%= image_tag order_product.product.images.first.image.to_s, style: 'width:100px;height:100px;',class:"image-responsive" %></div>
                 <div class="col-sm-9">
                   <h4 class="nomargin"><%= order_product.product.title %></h4>
                   <p><%= order_product.product.description %></p>
@@ -28,8 +29,18 @@
               <%= order_product.quantity %>
             </td>
             <td data-th="Subtotal" class="text-center"><%= order_product.total %></td>
+            <% order_total = order_total + order_product.total%>
             <td class="actions" data-th="">
-              <%= link_to 'Edit', edit_order_product_path(order_product) %>
+              
+              
+              <%= link_to 'Edit', edit_order_product_path(order_product), {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window', class: 'btn btn-primary'} %>
+              <div class="modal fade" tabindex="1" role="dialog" id="modal-window">
+              <div class="modal-dialog" role="document">
+                  <div class="modal-content"></div>
+                </div>
+              </div>
+              
+              
               <button class="btn btn-danger btn-sm">
                 <%= link_to order_product, method: :delete, data: { confirm: 'Are you sure?' } do%>
                   <i class="fa fa-trash-o"></i>
@@ -44,7 +55,7 @@
           <tr>
             <td data-th="Product">
               <div class="row">
-                <div class="col-sm-3 hidden-xs"><img src="http://placehold.it/100x100" alt="..." class="img-responsive"/></div>
+                <div class="col-sm-3 hidden-xs"><%= image_tag order_product.product[0][0].images.first.image.to_s, style: 'width:100px;height:100px;',class:"image-responsive" %></div>
                 <div class="col-sm-9">
                   <h4 class="nomargin"><%= order_product.product[0][0].title %></h4>
                   <p><%= order_product.product[0][0].description %></p>
@@ -56,10 +67,20 @@
               <%= order_product.product[1][0] %>
             </td>
             <td data-th="Subtotal" class="text-center"><%= order_product.product[1][0]*order_product.product[0][0].price %></td>
+            <% order_total+=(order_product.product[1][0]*order_product.product[0][0].price)%>
             <td class="actions" data-th="">
               <% id=order_product.product[0][0].id %>
               <% quantity= order_product.product[1][0] %>
-              <%= link_to 'Edit', edit_order_product_path(id: id,quantity: quantity) %>
+
+
+              <%= link_to 'Edit', edit_order_product_path(id: id,quantity: quantity), {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window', class: 'btn btn-primary'} %>
+              <div class="modal fade" tabindex="1" role="dialog" id="modal-window">
+              <div class="modal-dialog" role="document">
+                  <div class="modal-content"></div>
+                </div>
+              </div>
+
+
               <button class="btn btn-danger btn-sm">
                 <%= link_to order_product_path(id: id), method: :delete, data: { confirm: 'Are you sure?' } do%>
                   <i class="fa fa-trash-o"></i>
@@ -80,7 +101,7 @@
           <% end %>
         </td>
         <td colspan="2" class="hidden-xs"></td>
-        <td class="hidden-xs text-center"><strong>Total $1.99</strong></td>
+        <td class="hidden-xs text-center"><strong>Total $<%= order_total.to_i%></strong></td>
         <td><a href="#" class="btn btn-success btn-block">Checkout <i class="fa fa-angle-right"></i></a></td>
       </tr>
     </tfoot>

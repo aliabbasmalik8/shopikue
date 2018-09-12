@@ -1,5 +1,5 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a href="#" class="navbar-brand">Shopikue</a>
+<nav class="navbar navbar-expand-lg navbar-lig  ht bg-light">
+  <a href=<%= products_path %> class="navbar-brand">Shopikue</a>
 
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#content" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -10,6 +10,11 @@
       
     </ul>
     <ul class="navbar-nav">
+      <li class="nav-item nav-link">
+        <%= link_to order_products_path do %>
+          <i class="fa fa-shopping-cart"></i>
+        <% end %>
+      </li>
       <% if current_user %>
         <li class="nav-item nav-link">
           <%= link_to 'Sign Out', destroy_user_session_path, method: :delete %>

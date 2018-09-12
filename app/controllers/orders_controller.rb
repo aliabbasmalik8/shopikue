@@ -68,13 +68,21 @@ class OrdersController < ApplicationController
       cookies[:add_to_cart] = JSON.generate(a)
     else
       x = JSON.parse(cookies[:add_to_cart])
+      if x.any? {|h| h["product_id"]==product_id }
+        x.each do |elem|
+          if elem["product_id"]==product_id
+            quantity=quantity.to_i+(elem["quantity"]).to_i
+          end
+        end
+        x.delete_if { |h| h["product_id"] == product_id }
+      end
       x << {product_id: product_id, quantity: quantity}
       cookies[:add_to_cart] = JSON.generate(x)
     end
   end
 
   def add_cart
-    @product=Product.includes(:images).where(id: params[:product_id])
+    @product=Product.includes(:images, :comments).where(id: params[:product_id]).first
   end
 
   def add_to_cart

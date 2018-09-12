@@ -67,3 +67,4 @@ gem 'bootstrap', '~> 4.1.3'
 gem 'jquery-rails'
 gem 'ancestry'
 gem "font-awesome-rails"
+gem "popper"

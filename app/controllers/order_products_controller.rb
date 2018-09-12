@@ -5,7 +5,7 @@ class OrderProductsController < ApplicationController
   # GET /order_products.json
   def index
     if current_user
-      @order_products = OrderProduct.all
+      @order_products = OrderProduct.all.includes(product: :images)
     else
       @order_products = []
       if !cookies[:add_to_cart].nil?
@@ -34,7 +34,10 @@ class OrderProductsController < ApplicationController
     if current_user
       @order_product = OrderProduct.find(params[:id])
     else
-
+    end
+    respond_to do |format|
+      format.html
+      format.js
     end
   end
 

@@ -1,12 +1,13 @@
+<br>
 <div class="container">
   <div class="row">
     <div class="col-sm-3 col-md-6 col-lg-4">
-      <%= image_tag(@product[0].images.first.image.to_s,:align=>"middle", width: '350px',height: '350px') %>
+      <%= image_tag(@product.images.first.image.to_s,:align=>"middle", width: '350px',height: '350px') %>
     </div>
     <div class="col-sm-9 col-md-6 col-lg-8" >
-      <h1><%= @product[0].title %></h1>
-      <div class="well"><%= @product[0].description %></div>
-      <div><strong>Price:</strong> <%= @product[0].price%></div>
+      <h1><%= @product.title %></h1>
+      <div class="well"><%= @product.description %></div>
+      <div><strong>Price:</strong> <%= @product.price%></div>
       <br>
 
       <%= form_tag(add_to_cart_path) do%>
@@ -18,19 +19,18 @@
           <%= submit_tag 'Add to Cart',class:'form-control'%>
         </div>
       <% end %>
-
-
     </div>
   </div>
-
-
-
-
-
-
-
-
-
+  <br>
+  <% @product.comments.root.each do |root| %>
+    <%= render partial: 'comments/comment_card',locals: {root: root} %>
+    <% root.children.each do |child| %>
+      <div  style="margin-left: 60px;">
+        <%= render partial: 'comments/comment_card',locals: {root: child} %>
+      </div>
+    <% end %>
+  <% end %>
+  
 </div>
 
 
