@@ -1,0 +1,5 @@
+$('.reply_comment').off().bind('ajax:success', function() {
+        if(!$("#child_form_<%= params[:ancestry]%>").length){
+                $(this).first().closest('#comment-card').append('<%= j render partial: 'new' %>')
+        }    
+});

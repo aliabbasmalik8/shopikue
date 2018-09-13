@@ -1,0 +1,7 @@
+<% if @comment.ancestry==nil %>
+  $('#comments').append('<%= j render partial: 'comment_card', locals: { root: @comment } %> <div id="child_comment_<%= @comment.id %>" style="margin-left: 60px;"></div>')
+<% else %>
+  $(document).find('#child_comment_<%=@comment.ancestry.to_i%>').append('<%= j render partial: 'comment_card', locals: { root: @comment } %>')
+  $('#child_form_<%=@comment.ancestry.to_i%>').remove()   
+<% end %>
+$('#comment_body').val('');

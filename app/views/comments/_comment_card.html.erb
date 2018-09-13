@@ -1,11 +1,17 @@
 <% unless root.nil? %>
-  <div class="card">
+  <div class="card" id="comment-card" >
     <div class="card-body">
       <div class="well">
         <%= root.body %>
-        <%= link_to 'reply', new_product_comment_path(:ancestry => root) %>
-        <%= link_to 'Edit', edit_product_comment_path(params[:product_id],root) %>
-        <%= link_to 'Destroy', product_comment_path(params[:product_id],root), method: :delete, data: { confirm: 'Are you sure?' } %>
+        <div style="display: inline;" class="float-right" >
+          <% if root.ancestry==nil %>
+              <%= link_to 'reply', new_product_comment_path(:ancestry => root), remote: true, class:'btn reply_comment' %>
+          <% end %>
+          <% if root.user_id==current_user.id %>
+            <%= link_to 'Edit', edit_product_comment_path(params[:product_id],root),class:'btn', remote: true, class: "btn edit_comment" %>
+            <%= link_to 'Destroy', product_comment_path(params[:product_id],root), remote: true ,method: :delete, data: { confirm: 'Are you sure?' },class:'btn delete_comment' %>
+          <% end %>
+        </div>
       </div>  
     </div>
   </div>

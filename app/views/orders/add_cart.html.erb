@@ -22,15 +22,18 @@
     </div>
   </div>
   <br>
-  <% @product.comments.root.each do |root| %>
-    <%= render partial: 'comments/comment_card',locals: {root: root} %>
-    <% root.children.each do |child| %>
-      <div  style="margin-left: 60px;">
-        <%= render partial: 'comments/comment_card',locals: {root: child} %>
+  <div id='comments'>
+    <% @product.comments.root.each do |root| %>
+      <%= render partial: 'comments/comment_card',locals: {root: root} %>
+      <div id="child_comment_<%= root.id %>" style="margin-left: 60px;">
+        <% root.children.each do |child| %>
+          <%= render partial: 'comments/comment_card',locals: {root: child} %>
+        <% end %>
       </div>
     <% end %>
-  <% end %>
-  
+  </div>
+  <%= render partial: 'comments/new' %>
+
 </div>
 
 
