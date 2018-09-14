@@ -32,7 +32,9 @@
       </div>
     <% end %>
   </div>
-  <%= render partial: 'comments/new' %>
+  <% if current_user %>
+      <%= render partial: 'comments/new' %>
+  <% end %>
 
 </div>
 

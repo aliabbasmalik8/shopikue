@@ -1,2 +1,3 @@
-console.log(<%= @comment.id %>)
 $(document).find("#child_form_<%= @comment.id %>").remove()
+
+$(document).find("#comment_card_<%= @comment.id %>").text("<%=@comment.body %>")

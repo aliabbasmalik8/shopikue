@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-md-12">
             <%= form_tag(product_comments_path, method: :post, remote: true) do %>
-                <textarea id="comment_body" name="comment[body]" class="form-control" placeholder="Write Comment" rows="2" required></textarea>
+                <textarea id="comment_body" name="comment[body]" class="form-control" placeholder="Write Comment" rows="2" required data-behavior="room_speaker" data-user_id="<%= current_user.id %>" data-product_id="<%= params[:product_id] %>"></textarea>
                 <%= hidden_field_tag 'comment[ancestry]',params[:ancestry]%>
                 <%= submit_tag 'Post Comment', class:"btn"%>
             <% end %>

@@ -34,7 +34,6 @@ class CommentsController < ApplicationController
   # POST /comments.json
   def create
     @comment = @product.comments.create(comment_params)
-
     respond_to do |format|
       if @comment.save
         format.html { redirect_to product_comment_path(@product,@comment), notice: 'Comment was successfully created.' }
