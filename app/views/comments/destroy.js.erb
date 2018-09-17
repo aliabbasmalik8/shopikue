@@ -1,4 +1,4 @@
 $('.delete_comment').off().bind('ajax:success', function() {  
         $(this).closest('#comment-card').remove();
         $(document).find('#child_comment_<%= @comment.id %>').remove();
-});  
+});

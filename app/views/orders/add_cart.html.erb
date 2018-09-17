@@ -25,7 +25,7 @@
   <div id='comments'>
     <% @product.comments.root.each do |root| %>
       <%= render partial: 'comments/comment_card',locals: {root: root} %>
-      <div id="child_comment_<%= root.id %>" style="margin-left: 60px;">
+      <div id="child_comment_<%= root.id %>" class="child_comments" >
         <% root.children.each do |child| %>
           <%= render partial: 'comments/comment_card',locals: {root: child} %>
         <% end %>
