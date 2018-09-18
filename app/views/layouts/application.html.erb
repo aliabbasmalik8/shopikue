@@ -9,7 +9,7 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body>
+  <body data-user-id="<%= current_user&.id%>">
     <%= render 'shared/nav' %>
     <% if notice || alert %>
       <div class="alert alert-success alert-dismissible fade show" id="flash" role="alert">

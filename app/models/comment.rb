@@ -6,4 +6,8 @@ class Comment < ApplicationRecord
   scope :root, -> { where(ancestry: nil) }
   scope :children_of_root, -> (root_id) { where(ancestry: root_id.to_s) }
   
+
+  def self.user(user_id)
+    User.find(user_id)
+  end
 end

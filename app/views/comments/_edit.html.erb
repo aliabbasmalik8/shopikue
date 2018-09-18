@@ -2,9 +2,7 @@
     <div class="row">
         <div class="col-md-12">
             <%= form_tag(product_comment_path, method: :patch, remote: true) do %>
-                <textarea id="comment_body_<%= @comment.id %>" name="comment[body]" class="form-control" rows="1" required data-behavior="update_comment" data-comment_id="<%= @comment.id %>" data-ancestry="<%= @comment.ancestry %>"><%= @comment.body%></textarea>
-                <%= hidden_field_tag 'comment[ancestry]',params[:ancestry]%>
-                <%= submit_tag 'Update Comment', class:"btn"%>
+                <textarea id="comment_body_<%= @comment.id %>" name="comment[body]" class="form-control" rows="2" required data-behavior="update_comment" data-comment_id="<%= @comment.id %>"> <%= @comment.body%> </textarea>
             <% end %>
         </div>
     </div>

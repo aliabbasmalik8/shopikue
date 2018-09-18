@@ -22,8 +22,11 @@
     </div>
   </div>
   <br>
+  <% if current_user %>
+      <%= render partial: 'comments/new' %>
+  <% end %>
   <div id='comments'>
-    <% @product.comments.root.each do |root| %>
+    <% @product.comments.order(created_at: :desc).root.each do |root| %>
       <%= render partial: 'comments/comment_card',locals: {root: root} %>
       <div id="child_comment_<%= root.id %>" class="child_comments" >
         <% root.children.each do |child| %>
@@ -32,9 +35,6 @@
       </div>
     <% end %>
   </div>
-  <% if current_user %>
-      <%= render partial: 'comments/new' %>
-  <% end %>
 
 </div>
 
