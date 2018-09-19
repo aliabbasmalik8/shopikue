@@ -19,7 +19,7 @@ class OrdersController < ApplicationController
   end
 
   # GET /orders/1/edit
-  def edit
+  def edit 
   end
 
   # POST /orders
@@ -82,7 +82,7 @@ class OrdersController < ApplicationController
   end
 
   def add_cart
-    @product=Product.includes(:images, :comments).where(id: params[:product_id]).first
+    @product = Product.includes(:images, :comments).where(id: params[:product_id]).first
   end
 
   def add_to_cart
@@ -96,9 +96,27 @@ class OrdersController < ApplicationController
     end
   end
   
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_order
-      @order = Order.find(params[:id])
+  # For product rate
+  def add_rating
+    @product = Product.find(params[:product_id])
+    flag = @product.ratings.where(user_id: current_user.id).exists?
+    if flag
+      @rating = @product.ratings.where(user_id: current_user.id)
+      @rating.update(rate: params[:rate])
+    else
+      @product.ratings.create!(rate: params[:rate], user_id: current_user.id)
     end
+    @avg_rating = @product.ratings.average(:rate)
+    respond_to do |format|
+      format.js {}
+      format.json { render json: @avg_rating, status: :ok }
+    end
+  end
+
+  private
+  
+  # Use callbacks to share common setup or constraints between actions.
+  def set_order
+    @order = Order.find(params[:id])
+  end
 end

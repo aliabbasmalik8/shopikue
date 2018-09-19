@@ -2,12 +2,19 @@
 <div class="container">
   <div class="row">
     <div class="col-sm-3 col-md-6 col-lg-4">
-      <%= image_tag(@product.images.first.image.to_s,:align=>"middle", width: '350px',height: '350px') %>
+      <%= image_tag(@product.first_image.to_s,:align=>"middle", width: '350px',height: '350px') %>
     </div>
     <div class="col-sm-9 col-md-6 col-lg-8" >
       <h1><%= @product.title %></h1>
       <div class="well"><%= @product.description %></div>
       <div><strong>Price:</strong> <%= @product.price%></div>
+      <div>
+        <% i=@product.ratings.average(:rate).to_i %>
+        <% while i>0 %>
+          <i class="fa fa-star"></i>
+          <% i=i-1 %>
+        <% end %>
+      </div>
       <br>
 
       <%= form_tag(add_to_cart_path) do%>
@@ -19,12 +26,16 @@
           <%= submit_tag 'Add to Cart',class:'form-control'%>
         </div>
       <% end %>
+      
+      <%= render partial: 'rating' %>
     </div>
   </div>
   <br>
+
   <% if current_user %>
       <%= render partial: 'comments/new' %>
   <% end %>
+
   <div id='comments'>
     <% @product.comments.order(created_at: :desc).root.each do |root| %>
       <%= render partial: 'comments/comment_card',locals: {root: root} %>

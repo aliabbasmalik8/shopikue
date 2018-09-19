@@ -38,9 +38,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
   #   super
   # end
 
-  def current_user
-    render json: {id: current_user.id}
-  end
   # protected
 
   # If you have extra params to permit, append them to the sanitizer.

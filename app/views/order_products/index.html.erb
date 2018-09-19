@@ -17,7 +17,7 @@
           <tr>
             <td data-th="Product">
               <div class="row">
-                <div class="col-sm-3 hidden-xs"><%= image_tag order_product.product.images.first.image.to_s, style: 'width:100px;height:100px;',class:"image-responsive" %></div>
+                <div class="col-sm-3 hidden-xs"><%= image_tag order_product.product.first_image.to_s, style: 'width:100px;height:100px;',class:"image-responsive" %></div>
                 <div class="col-sm-9">
                   <h4 class="nomargin"><%= order_product.product.title %></h4>
                   <p><%= order_product.product.description %></p>

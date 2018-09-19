@@ -18,8 +18,8 @@
 //= require popper
 //= require bootstrap-sprockets
 
-$(document).ready(function(){
+$( document ).on('turbolinks:load', function() {
     setTimeout(function(){
       $('#flash').remove();
     }, 3000);
-   })
+})
