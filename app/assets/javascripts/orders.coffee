@@ -3,7 +3,6 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 $(document).on 'turbolinks:load', ->
     $('input:radio').change ->
-        console.log 'New star rating: ' + this.value
         $.ajax(
             url: 'add_rating'
             beforeSend: (xhr) ->

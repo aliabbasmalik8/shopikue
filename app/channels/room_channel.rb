@@ -9,14 +9,12 @@ class RoomChannel < ApplicationCable::Channel
 
   def speak(data)
     #ActionCable.server.broadcast 'room_channel', comment: data['comment']
-    puts "*******"*100
-    puts data['ancestry']
     if data['ancestry'].blank?
       comment = Comment.create! body: data['comment'], user_id: data['user_id'], product_id: data['product_id']
     else
       comment = Comment.create! body: data['comment'], user_id: data['user_id'], product_id: data['product_id'], ancestry: data['ancestry']
     end
-    CommentBroadcastJob.perform_later comment, current_user
+    CommentBroadcastJob.perform_later comment
   end
 
 

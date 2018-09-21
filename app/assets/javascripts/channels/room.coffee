@@ -7,17 +7,8 @@ App.room = App.cable.subscriptions.create "RoomChannel",
 
   received: (data) ->
     if data['flag'] == 'create'
-      if data['ancestry'] == null
-        $('#comments').prepend data['comment']
-      else
-        $("#child_comment_#{data['ancestry']}").prepend data['comment']
-      $('#child_form_'+data['ancestry']).remove()
-      # if data['current_user_id'] == $('body').data 'user-id'
-      #   console.log('----current_user-----')
-      #   console.log $('body').data 'user-id'
-      #   $("#functionality_of_#{data['comment_id']}")
+      App.room.render_comment data['comment_id'], data['product_id']
 
-    
     else if data['flag'] == 'update'
       $('#child_form_'+data['comment_id']).remove()
       $('#comment_card_'+data['comment_id']).text(data['comment'])
@@ -37,6 +28,21 @@ App.room = App.cable.subscriptions.create "RoomChannel",
   destroy: (comment_id)->
     @perform 'destroy',comment_id: comment_id
 
+  render_comment: (comment_id, product_id)->
+    $.ajax(
+        url: '/comments/render_comment'
+        beforeSend: (xhr) ->
+            xhr.setRequestHeader 'X-CSRF-Token', $('meta[name="csrf-token"]').attr('content')
+            return
+        type: 'POST'
+        data: comment_id: comment_id, product_id: product_id).done((data, textStatus, jqXHR) ->
+        console.log 'Success: ' + data
+        return
+    ).fail((jqXHR, textStatus, errorThrown) ->
+        console.log 'Error'
+        return
+    ).always (jqXHROrData, textStatus, jqXHROrErrorThrown) ->
+        return
 
 $(document).on 'keypress', '[data-behavior~=room_speaker]',(event) ->
   if event.keyCode is 13 # return = send

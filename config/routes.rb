@@ -6,6 +6,8 @@ Rails.application.routes.draw do
 
   post 'orders/:product_id/add_rating', to: 'orders#add_rating', as: :add_rating
 
+  post 'comments/render_comment', to: 'comments#render_comment', as: :render_comment
+  
   resources :orders do
   end
   resources :products do

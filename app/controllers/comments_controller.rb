@@ -76,6 +76,14 @@ class CommentsController < ApplicationController
     end
   end
 
+  def render_comment
+    @comment=Comment.find(params[:comment_id])
+    respond_to do |format|
+      #format.json { render json: :ok }
+      format.js
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     # def set_comment
