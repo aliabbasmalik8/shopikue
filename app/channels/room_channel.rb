@@ -8,7 +8,7 @@ class RoomChannel < ApplicationCable::Channel
   end
 
   def speak(data)
-    #ActionCable.server.broadcast 'room_channel', comment: data['comment']
+    # ActionCable.server.broadcast 'room_channel', comment: data['comment']
     if data['ancestry'].blank?
       comment = Comment.create! body: data['comment'], user_id: data['user_id'], product_id: data['product_id']
     else

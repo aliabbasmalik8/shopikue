@@ -102,7 +102,11 @@
         </td>
         <td colspan="2" class="hidden-xs"></td>
         <td class="hidden-xs text-center"><strong>Total $<%= order_total.to_i%></strong></td>
-        <td><a href="#" class="btn btn-success btn-block">Checkout <i class="fa fa-angle-right"></i></a></td>
+        <td>
+          <%= link_to new_charge_path(amount: order_total.to_i) do %>
+              <button class="btn btn-success"><i class="fa fa-angle-right"></i> Checkout</button>
+          <% end %>
+        </td>
       </tr>
     </tfoot>
     

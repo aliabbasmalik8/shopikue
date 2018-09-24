@@ -27,7 +27,10 @@
         </div>
       <% end %>
       
-      <%= render partial: 'rating' %>
+      <% if user_signed_in? %>
+        <%= render partial: 'rating' %>
+      <% end %>
+    
     </div>
   </div>
   <br>

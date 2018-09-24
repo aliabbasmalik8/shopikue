@@ -113,6 +113,14 @@ class OrdersController < ApplicationController
     end
   end
 
+  def user_rate
+    @product = Product.find(params[:product_id])
+    @rate = @product.ratings.where(user_id: current_user.id).pluck(:rate)
+    respond_to do |format|
+      format.json { render json: @rate, status: :ok }
+    end
+  end
+
   private
   
   # Use callbacks to share common setup or constraints between actions.

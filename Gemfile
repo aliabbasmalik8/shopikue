@@ -69,3 +69,4 @@ gem 'ancestry'
 gem "font-awesome-rails"
 gem "popper"
 gem 'glyphicons-rails'
+gem 'stripe'

@@ -19,4 +19,5 @@ class User < ApplicationRecord
       'logo.png'
     end
   end
+
 end

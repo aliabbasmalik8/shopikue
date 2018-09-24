@@ -1,0 +1,13 @@
+<%= form_tag charges_path do |f| %>
+  <article>
+    <label class="amount">
+        <span>Amountt: <%= params[:amount] %></span>
+    </label>
+  </article>
+
+  <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+          data-key="<%=  Rails.application.secrets.stripe_publishable_key %>"
+          data-description="A month's subscription"
+          data-amount="<%= params[:amount] %>"
+          data-locale="auto"></script>
+<% end %>

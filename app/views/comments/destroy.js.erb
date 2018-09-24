@@ -1,6 +1,5 @@
 $('.delete_comment').off().bind('ajax:success', function() {  
         $(this).closest('#comment-card_of_<%= @comment.id %>').remove();
-        $(document).find('#child_comment_<%= @comment.id %>').remove();
-       
+        $(document).find('#child_comment_<%= @comment.id %>').remove();    
         App.room.destroy(<%= @comment.id %>)
 });

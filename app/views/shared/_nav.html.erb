@@ -1,7 +1,8 @@
 <nav class="navbar navbar-expand-lg navbar-lig  ht bg-light">
   <a href=<%= products_path %> class="navbar-brand">Shopikue</a>
-  <%= link_to image_tag(current_user&.image.to_s,:align=>"middle",class: 'card-img-top img-fluid',style:"height:30px; width:30px"), edit_user_registration_path %>
-
+  <% if user_signed_in? %>
+    <%= link_to image_tag(current_user&.image.to_s,:align=>"middle",class: 'my_img card-img-top img-fluid',style:"height:30px; width:30px"), edit_user_registration_path %>
+  <% end %>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#content" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
