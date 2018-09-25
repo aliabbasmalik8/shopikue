@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# User model
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
@@ -7,7 +10,6 @@ class User < ApplicationRecord
   has_many :orders
   has_many :ratings
   has_many :images, as: :imageable
-  
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable,
          :confirmable, :lockable, :timeoutable, :trackable
@@ -19,5 +21,4 @@ class User < ApplicationRecord
       'logo.png'
     end
   end
-
 end

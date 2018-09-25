@@ -10,7 +10,6 @@
     <% @images.each do |image| %>
       <tr>
         <td><%= image_tag(image.image.to_s, width:'50x', :align=>'middle') %></td>
-        <td><%= link_to 'Show', product_image_path(@imageable,image) %></td>
         <td><%= link_to 'Edit', edit_product_image_path(@imageable,image) %></td>
         <td><%= link_to 'Destroy', product_image_path(@imageable,image), method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>

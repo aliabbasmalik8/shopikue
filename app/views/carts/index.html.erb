@@ -13,27 +13,26 @@
     <tbody>
       <% order_total=0 %>
       <% if current_user %>
-        <% @order_products.each do |order_product| %>
+        <% @carts.each do |cart| %>
           <tr>
             <td data-th="Product">
               <div class="row">
-                <div class="col-sm-3 hidden-xs"><%= image_tag order_product.product.first_image.to_s, style: 'width:100px;height:100px;',class:"image-responsive" %></div>
+                <div class="col-sm-3 hidden-xs"><%= image_tag cart.product.first_image.to_s, style: 'width:100px;height:100px;',class:"image-responsive" %></div>
                 <div class="col-sm-9">
-                  <h4 class="nomargin"><%= order_product.product.title %></h4>
-                  <p><%= order_product.product.description %></p>
+                  <h4 class="nomargin"><%= cart.product.title %></h4>
+                  <p><%= cart.product.description %></p>
                 </div>
               </div>
             </td>
-            <td data-th="Price"><%= order_product.product.price %></td>
+            <td data-th="Price"><%= cart.product.price %></td>
             <td data-th="Quantity">
-              <%= order_product.quantity %>
+              <%= cart.quantity %>
             </td>
-            <td data-th="Subtotal" class="text-center"><%= order_product.total %></td>
-            <% order_total = order_total + order_product.total%>
+            <td data-th="Subtotal" class="text-center"><%= cart.total %></td>
+            <% order_total = order_total + cart.total%>
             <td class="actions" data-th="">
               
-              
-              <%= link_to 'Edit', edit_order_product_path(order_product), {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window', class: 'btn btn-primary'} %>
+              <%= link_to 'Edit', edit_cart_path(cart), {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window', class: 'btn btn-primary'} %>
               <div class="modal fade" tabindex="1" role="dialog" id="modal-window">
               <div class="modal-dialog" role="document">
                   <div class="modal-content"></div>
@@ -42,7 +41,7 @@
               
               
               <button class="btn btn-danger btn-sm">
-                <%= link_to order_product, method: :delete, data: { confirm: 'Are you sure?' } do%>
+                <%= link_to cart_path(cart), method: :delete, data: { confirm: 'Are you sure?' } do%>
                   <i class="fa fa-trash-o"></i>
                 <% end %>
               </button>								
@@ -51,29 +50,29 @@
         <% end %>
       <% else %>
 
-        <% @order_products.each do |order_product| %>
+        <% @order_products.each do |cart| %>
           <tr>
             <td data-th="Product">
               <div class="row">
-                <div class="col-sm-3 hidden-xs"><%= image_tag order_product.product[0][0].images.first.image.to_s, style: 'width:100px;height:100px;',class:"image-responsive" %></div>
+                <div class="col-sm-3 hidden-xs"><%= image_tag cart.product[0][0].images.first.image.to_s, style: 'width:100px;height:100px;',class:"image-responsive" %></div>
                 <div class="col-sm-9">
-                  <h4 class="nomargin"><%= order_product.product[0][0].title %></h4>
-                  <p><%= order_product.product[0][0].description %></p>
+                  <h4 class="nomargin"><%= cart.product[0][0].title %></h4>
+                  <p><%= cart.product[0][0].description %></p>
                 </div>
               </div>
             </td>
-            <td data-th="Price"><%= order_product.product[0][0].price %></td>
+            <td data-th="Price"><%= cart.product[0][0].price %></td>
             <td data-th="Quantity">
-              <%= order_product.product[1][0] %>
+              <%= cart.product[1][0] %>
             </td>
-            <td data-th="Subtotal" class="text-center"><%= order_product.product[1][0]*order_product.product[0][0].price %></td>
-            <% order_total+=(order_product.product[1][0]*order_product.product[0][0].price)%>
+            <td data-th="Subtotal" class="text-center"><%= cart.product[1][0]*cart.product[0][0].price %></td>
+            <% order_total+=(cart.product[1][0]*cart.product[0][0].price)%>
             <td class="actions" data-th="">
-              <% id=order_product.product[0][0].id %>
-              <% quantity= order_product.product[1][0] %>
+              <% id=cart.product[0][0].id %>
+              <% quantity= cart.product[1][0] %>
 
 
-              <%= link_to 'Edit', edit_order_product_path(id: id,quantity: quantity), {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window', class: 'btn btn-primary'} %>
+              <%= link_to 'Edit', edit_cart_path(id: id,quantity: quantity), {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window', class: 'btn btn-primary'} %>
               <div class="modal fade" tabindex="1" role="dialog" id="modal-window">
               <div class="modal-dialog" role="document">
                   <div class="modal-content"></div>
@@ -82,7 +81,7 @@
 
 
               <button class="btn btn-danger btn-sm">
-                <%= link_to order_product_path(id: id), method: :delete, data: { confirm: 'Are you sure?' } do%>
+                <%= link_to cart_path(id: id), method: :delete, data: { confirm: 'Are you sure?' } do%>
                   <i class="fa fa-trash-o"></i>
                 <% end %>
               </button>			

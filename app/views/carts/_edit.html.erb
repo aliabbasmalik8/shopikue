@@ -4,9 +4,9 @@
 </div>
     <div class="modal-body d-flex justify-content-center">
         <% if current_user %>
-            <%= render 'form', order_product: @order_product %>
+            <%= render 'form', cart: @cart %>
         <% else %>
-            <%= form_tag(order_product_path, method: :patch) do %>
+            <%= form_tag(cart_path, method: :patch) do %>
             <div class="field form-group ">
                 <%= number_field_tag :quantity , params[:quantity] %>
             </div>

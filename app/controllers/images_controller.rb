@@ -1,6 +1,6 @@
 class ImagesController < ApplicationController
   before_action :set_image, only: [:show, :edit, :update, :destroy]
-  before_action :load_imageable
+  before_action :load_imageable, except: :update_user_image
 
   # GET /images
   # GET /images.json
@@ -27,14 +27,11 @@ class ImagesController < ApplicationController
   # POST /images.json
   def create
     @image = @imageable.images.new(image_params)
-
     respond_to do |format|
       if @image.save
-        format.js
         format.html { redirect_to @imageable, notice: 'Image was successfully created.' }
         format.json { render :show, status: :created, location: @image }
       else
-        format.js
         format.html { render :new }
         format.json { render json: @image.errors, status: :unprocessable_entity }
       end
@@ -65,7 +62,19 @@ class ImagesController < ApplicationController
     end
   end
 
+  def update_user_image
+    if current_user.images.any?
+      @image = current_user.images.update(image: params[:image][:image])
+    else
+      @image = current_user.images.create(image: params[:image][:image])
+    end   
+    respond_to do |format|
+      format.js {}
+    end
+  end
+
   private
+
     # Use callbacks to share common setup or constraints between actions.
     def set_image
       @image = Image.find(params[:id])

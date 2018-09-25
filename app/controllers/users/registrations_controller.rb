@@ -38,16 +38,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
   #   super
   # end
 
-  def update_image
-    if current_user.images.any?
-      @image = current_user.images.update(image: params[:image][:image])
-    else
-      @image = current_user.images.create(image: params[:image][:image])
-    end
-    respond_to do |format|
-      format.js {}
-    end
-  end
   # protected
 
   # If you have extra params to permit, append them to the sanitizer.

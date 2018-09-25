@@ -7,24 +7,21 @@ class Order < ApplicationRecord
 
   scope :user_orders, -> (current_user){where(user_id: current_user.id)}
 
-
   def self.add_to_cart(product_id,quantity,current_user)
-
-    product=Product.find(product_id)
+    product = Product.find(product_id)
     check_order_exist=Order.where(user_id: current_user.id, status: 0).exists?
-
     if check_order_exist
       id_of_order=Order.where(user_id: current_user.id, status: 0).last.id
 
-      #check weather same product exist in user add to cart lisgt
+      # check weather same product exist in user add to cart lisgt
       check_order_product_exist=OrderProduct.where(order_id: id_of_order, product_id: product_id).exists?
 
       if check_order_product_exist
-        op=OrderProduct.where(order_id: id_of_order, product_id: product_id)
+        op = OrderProduct.where(order_id: id_of_order, product_id: product_id)
 
         latest_quantity = (op[0].quantity) + quantity.to_i
 
-        total=product.price*latest_quantity
+        total=product.price * latest_quantity
 
         op.update(quantity: latest_quantity, total: total)
 

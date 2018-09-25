@@ -3,7 +3,7 @@
   <img src="<%= current_user&.image.to_s%>" class="my_img rounded-circle" alt="Cinque Terre" width="200px" height="200px" >  
   <br /><br />
   <div class="field form-group col-7">
-    <%= form_for(current_user.images.new, url: update_image_path, remote: true ) do |f|%>
+    <%= form_for(current_user.images.new, url: update_user_image_path, remote: true ) do |f|%>
       <%= f.file_field :image %>
       <%= f.submit 'upload image'%>
     <% end %>
@@ -52,6 +52,4 @@
     
     <%= link_to "Back", :back %>
   </div>
-  
-  
 </div>

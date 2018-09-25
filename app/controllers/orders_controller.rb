@@ -92,7 +92,7 @@ class OrdersController < ApplicationController
       Order.add_to_cart(params[:product_id],params[:quantity],current_user)
     end
     respond_to do |format|
-      format.html {redirect_to order_products_url, notice: 'Add to cart Successfully.'}
+      format.html {redirect_to carts_url, notice: 'Add to cart Successfully.'}
     end
   end
   

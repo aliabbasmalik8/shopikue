@@ -2,7 +2,32 @@
 <div class="container" data-product-id="<%= @product.id %>">
   <div class="row">
     <div class="col-sm-3 col-md-6 col-lg-4">
-      <%= image_tag(@product.first_image.to_s,:align=>"middle", width: '350px',height: '350px') %>
+      <div id="product_images" class="carousel slide" data-ride="carousel">
+        <ol class="carousel-indicators">
+          <% @i= 0 %>
+          <% @count = @product.images.count %>
+          <% while @i < @count %>
+            <li data-target="#product_images" data-slide-to="<%= @i %>" ></li>
+            <% @i = @i+1 %>
+          <% end %>
+        </ol>
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <% if @product.images.any? %>
+              <img class="d-block w-100" style="height: 350px; width: 350px" align="middle" src=<%= @product.images.first.image.to_s%> alt="First slide">
+            <% end %>
+          </div>
+          <% @j = 0 %>
+          <% @product.images.each do |image| %>
+            <% if @j != 0 %>
+              <div class="carousel-item">
+                <img class="d-block w-100" style="height: 350px; width: 350px" align="middle" src=<%= image.image.to_s%> alt="Second slide">
+              </div>
+            <% end %>
+            <% @j = @j + 1 %>
+          <% end %>
+        </div>
+      </div>
     </div>
     <div class="col-sm-9 col-md-6 col-lg-8" >
       <h1><%= @product.title %></h1>
@@ -20,7 +45,7 @@
       <%= form_tag(add_to_cart_path) do%>
         <div class="field form-group col-7">
           <%= label_tag :quantity %> <br/>
-          <%= number_field_tag :quantity %>
+          <%= number_field_tag :quantity,'1', min:1 %>
         </div>
         <div class="actions form-group col-7">
           <%= submit_tag 'Add to Cart',class:'form-control'%>
