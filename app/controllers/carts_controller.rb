@@ -5,14 +5,15 @@ class CartsController < ApplicationController
   # GET /order_products.json
   def index
     if current_user
-      @carts = OrderProduct.all.includes(product: :images)
+      order_id = Order.where(user_id: current_user.id, status: 0).ids
+      @carts = OrderProduct.where(order_id: order_id).includes(product: :images)
     else
       @order_products = []
-      if !cookies[:add_to_cart].nil?
+      unless cookies[:add_to_cart].nil?
         JSON.parse(cookies[:add_to_cart]).each do |cookie|
           arr = []
-          arr.push(Product.find(cookie["product_id"].to_i))
-          arr.push(cookie["quantity"].to_i)
+          arr.push(Product.find(cookie['product_id'].to_i))
+          arr.push(cookie['quantity'].to_i)
           @order_products << arr
         end
       end
@@ -21,8 +22,7 @@ class CartsController < ApplicationController
 
   # GET /order_products/1
   # GET /order_products/1.json
-  def show
-  end
+  def show? ; end
 
   # GET /order_products/new
   def new
@@ -62,24 +62,31 @@ class CartsController < ApplicationController
     if current_user
       @cart = OrderProduct.find(params[:id])
       product = Product.find(@cart.product_id)
-      quantity = (params[:order_product][:quantity]).to_i
-      total = (product.price)*quantity
+      quantity = params[:quantity].to_i
+      total = product.price * quantity
+
       respond_to do |format|
         if @cart.update(quantity: quantity, total: total)
-          format.html { redirect_to carts_path, notice: 'Order product was successfully updated.' }
-          format.json { render :show, status: :ok, location: @order_product }
+          format.html { redirect_to carts_path}
+          # format.json { render :show, status: :ok, location: @order_product }
+          format.js {}
         else
           format.html { render :edit }
           format.json { render json: @cart.errors, status: :unprocessable_entity }
+          format.js {}
         end
       end
     else
       x = JSON.parse(cookies[:add_to_cart])
-      x.delete_if { |h| h["product_id"] == params[:id] }
-      x << { product_id: params[:id], quantity: params[:quantity]}
+      x.each do |item|
+        if item["product_id"] == params[:id]
+          item["quantity"] = params[:quantity]
+        end
+      end
       cookies[:add_to_cart] = JSON.generate(x)
       respond_to do |format|
-        format.html { redirect_to carts_path, notice: 'Order product was successfully updated.' }
+        format.html { redirect_to carts_path }
+        format.js {}
       end
     end
   end

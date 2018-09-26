@@ -2,14 +2,13 @@
   <table id="cart" class="table table-hover table-condensed">
     <thead>
       <tr>
-        <th style="width:50%">Product</th>
+        <th style="width:55%">Product</th>
         <th style="width:10%">Price</th>
         <th style="width:8%">Quantity</th>
         <th style="width:22%" class="text-center">Subtotal</th>
-        <th style="width:10%"></th>
+        <th style="width:5%"></th>
       </tr>
     </thead>
-
     <tbody>
       <% order_total=0 %>
       <% if current_user %>
@@ -25,31 +24,21 @@
               </div>
             </td>
             <td data-th="Price"><%= cart.product.price %></td>
-            <td data-th="Quantity">
-              <%= cart.quantity %>
+
+            <td data-th="Quantity" class="form-grouup">
+              <%= number_field_tag :quantity , cart.quantity, min: 1, class: 'form-control quantity_input', 'data-cart-id': cart.id %>
             </td>
+            
             <td data-th="Subtotal" class="text-center"><%= cart.total %></td>
-            <% order_total = order_total + cart.total%>
+              <% order_total = order_total + cart.total%>
             <td class="actions" data-th="">
-              
-              <%= link_to 'Edit', edit_cart_path(cart), {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window', class: 'btn btn-primary'} %>
-              <div class="modal fade" tabindex="1" role="dialog" id="modal-window">
-              <div class="modal-dialog" role="document">
-                  <div class="modal-content"></div>
-                </div>
-              </div>
-              
-              
-              <button class="btn btn-danger btn-sm">
-                <%= link_to cart_path(cart), method: :delete, data: { confirm: 'Are you sure?' } do%>
-                  <i class="fa fa-trash-o"></i>
-                <% end %>
-              </button>								
+              <%= link_to cart_path(cart), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-dark btn-sm' do%>
+                <i class="fa fa-trash-o"></i>
+              <% end %>							
             </td>
           </tr>
         <% end %>
       <% else %>
-
         <% @order_products.each do |cart| %>
           <tr>
             <td data-th="Product">
@@ -62,36 +51,24 @@
               </div>
             </td>
             <td data-th="Price"><%= cart.product[0][0].price %></td>
-            <td data-th="Quantity">
-              <%= cart.product[1][0] %>
+            
+            <td data-th="Quantity" class="form-grouup">
+              <%= number_field_tag :quantity , cart.product[1][0], min: 1, class: 'form-control quantity_input', 'data-cart-id': cart.product[0][0].id %>
             </td>
+
             <td data-th="Subtotal" class="text-center"><%= cart.product[1][0]*cart.product[0][0].price %></td>
             <% order_total+=(cart.product[1][0]*cart.product[0][0].price)%>
             <td class="actions" data-th="">
               <% id=cart.product[0][0].id %>
               <% quantity= cart.product[1][0] %>
-
-
-              <%= link_to 'Edit', edit_cart_path(id: id,quantity: quantity), {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window', class: 'btn btn-primary'} %>
-              <div class="modal fade" tabindex="1" role="dialog" id="modal-window">
-              <div class="modal-dialog" role="document">
-                  <div class="modal-content"></div>
-                </div>
-              </div>
-
-
-              <button class="btn btn-danger btn-sm">
-                <%= link_to cart_path(id: id), method: :delete, data: { confirm: 'Are you sure?' } do%>
-                  <i class="fa fa-trash-o"></i>
-                <% end %>
-              </button>			
+              <%= link_to cart_path(id: id), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-dark btn-sm' do%>
+                <i class="fa fa-trash-o"></i>
+              <% end %>              
             </td>
           </tr>
         <% end %>
       <% end %>
     </tbody>
-
-
     <tfoot>
       <tr>
         <td>
@@ -108,6 +85,5 @@
         </td>
       </tr>
     </tfoot>
-    
   </table>
 </div>

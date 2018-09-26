@@ -1,6 +1,9 @@
+# frozen_string_literal: true
+
+# order controller
 class OrdersController < ApplicationController
   before_action :set_order, only: [:show, :edit, :update, :destroy]
-  
+
   # GET /orders
   # GET /orders.json
   def index
@@ -28,7 +31,7 @@ class OrdersController < ApplicationController
     @order = current_user.orders.new
     respond_to do |format|
       if @order.save
-        format.html { redirect_to @order, notice: 'Order was successfully created.' }
+        format.html { redirect_to @order, notice: 'Order was successfully created.'}
         format.json { render :show, status: :created, location: @order }
       else
         format.html { render :new }
@@ -61,22 +64,22 @@ class OrdersController < ApplicationController
     end
   end
 
-  def add_to_cookie(product_id,quantity)
-    a=[]
+  def add_to_cookie(product_id, quantity)
+    a = []
     if cookies[:add_to_cart].nil?
       a << {product_id: product_id, quantity: quantity}
       cookies[:add_to_cart] = JSON.generate(a)
     else
       x = JSON.parse(cookies[:add_to_cart])
-      if x.any? {|h| h["product_id"]==product_id }
+      if x.any? { |h| h['product_id'] == product_id }
         x.each do |elem|
-          if elem["product_id"]==product_id
-            quantity=quantity.to_i+(elem["quantity"]).to_i
+          if elem['product_id'] == product_id
+            quantity = quantity.to_i + (elem['product_id']).to_i
           end
         end
-        x.delete_if { |h| h["product_id"] == product_id }
+        x.delete_if { |h| h['product_id'] == product_id }
       end
-      x << {product_id: product_id, quantity: quantity}
+      x << { product_id: product_id, quantity: quantity }
       cookies[:add_to_cart] = JSON.generate(x)
     end
   end
@@ -89,13 +92,13 @@ class OrdersController < ApplicationController
     if !current_user
       add_to_cookie(params[:product_id],params[:quantity])
     else
-      Order.add_to_cart(params[:product_id],params[:quantity],current_user)
+      Order.add_to_cart(params[:product_id],params[:quantity], current_user)
     end
     respond_to do |format|
       format.html {redirect_to carts_url, notice: 'Add to cart Successfully.'}
     end
   end
-  
+
   # For product rate
   def add_rating
     @product = Product.find(params[:product_id])
@@ -122,7 +125,7 @@ class OrdersController < ApplicationController
   end
 
   private
-  
+
   # Use callbacks to share common setup or constraints between actions.
   def set_order
     @order = Order.find(params[:id])

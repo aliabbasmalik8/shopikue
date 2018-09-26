@@ -21,4 +21,9 @@ class User < ApplicationRecord
       'logo.png'
     end
   end
+
+  def is_admin
+    role =='admin'
+  end
+  
 end

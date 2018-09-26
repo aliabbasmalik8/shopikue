@@ -3,15 +3,15 @@ class Order < ApplicationRecord
   has_many :order_products, :dependent => :destroy
   has_many :products, through: :order_products
 
-  enum status: [:draft, :confirm]
+  enum status: [:draft, :paid, :fulfilled, :canceled, :returned]
 
-  scope :user_orders, -> (current_user){where(user_id: current_user.id)}
+  scope :user_orders,->(current_user){where(user_id: current_user.id)}
 
   def self.add_to_cart(product_id,quantity,current_user)
     product = Product.find(product_id)
-    check_order_exist=Order.where(user_id: current_user.id, status: 0).exists?
+    check_order_exist = Order.where(user_id: current_user.id, status: 0).exists?
     if check_order_exist
-      id_of_order=Order.where(user_id: current_user.id, status: 0).last.id
+      id_of_order = Order.where(user_id: current_user.id, status: 0).last.id
 
       # check weather same product exist in user add to cart lisgt
       check_order_product_exist=OrderProduct.where(order_id: id_of_order, product_id: product_id).exists?
@@ -29,7 +29,7 @@ class Order < ApplicationRecord
       else
 
         total=product.price*quantity.to_i
-        OrderProduct.create!(order_id: id_of_order, product_id: product_id,quantity: quantity, total: total)
+        OrderProduct.create!(order_id: id_of_order, product_id: product_id, quantity: quantity, total: total)
 
       end
 
@@ -42,9 +42,9 @@ class Order < ApplicationRecord
   end
 
   def self.update_order_total(order_id)
-    total=OrderProduct.where(order_id: order_id).pluck(:total).inject(0, :+)
-    order=Order.find(order_id)
+    total = OrderProduct.where(order_id: order_id).pluck(:total).inject(0, :+)
+    order = Order.find(order_id)
     order.update!(total: total)
   end
-
+  
 end

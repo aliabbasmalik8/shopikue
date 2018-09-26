@@ -1,5 +1,5 @@
 <% if @comment.ancestry==nil %>
-  $('#comments').prepend('<%= j render partial: 'comment_card', locals: { root: @comment } %> <div id="child_comment_<%= @comment.id %>" style="margin-left: 60px;"></div>')
+  $('#comments_<%= @comment.product_id%>').prepend('<%= j render partial: 'comment_card', locals: { root: @comment } %> <div id="child_comment_<%= @comment.id %>" style="margin-left: 60px;"></div>')
 <% else %>
   $(document).find('#child_comment_<%=@comment.ancestry.to_i%>').prepend('<%= j render partial: 'comment_card', locals: { root: @comment } %>')
   $('#child_form_<%=@comment.ancestry.to_i%>').remove()   

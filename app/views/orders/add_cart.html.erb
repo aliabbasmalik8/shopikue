@@ -64,7 +64,7 @@
       <%= render partial: 'comments/new' %>
   <% end %>
 
-  <div id='comments'>
+  <div id='comments_<%= @product.id %>'>
     <% @product.comments.order(created_at: :desc).root.each do |root| %>
       <%= render partial: 'comments/comment_card',locals: {root: root} %>
       <div id="child_comment_<%= root.id %>" class="child_comments" >

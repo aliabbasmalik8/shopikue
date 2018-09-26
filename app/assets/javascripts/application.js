@@ -17,7 +17,7 @@
 //= require jquery3
 //= require popper
 //= require bootstrap-sprockets
-
+//= require carts
 $( document ).on('turbolinks:load', function() {
     setTimeout(function(){
       $('#flash').remove();

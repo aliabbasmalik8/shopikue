@@ -27,8 +27,8 @@ Rails.application.routes.draw do
 
   post '/images/update_user_image', to: 'images#update_user_image', as: :update_user_image
   # charges routes
-  get 'charges/new', to: 'charges#new', as: :new_charge
-  post 'charges/create', to: 'charges#create', as: :charges
+  get 'payments/new', to: 'payments#new', as: :new_charge
+  post 'payments/create', to: 'payments#create', as: :charges
 
   root 'products#index'
   mount ActionCable.server => '/cable '
