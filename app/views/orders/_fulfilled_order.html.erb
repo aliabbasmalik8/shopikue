@@ -1,0 +1,23 @@
+<div class="container">
+    <table class="table table-dark">
+        <thead >
+            <tr>
+                <th>Order Id</th>
+                <th>User Email</th>
+                <th>Total</th>
+                <th colspan="1"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <% @fulfilled_orders.each do |order| %>
+                <tr>
+                    <td><%= order.id %></td>
+                    <td><%= order.user.email %></td>
+                    <td><%= order.total %></td>
+                    <td><%= link_to 'Show', order_path(id: order.id) %></td>
+                </tr>
+            <% end %>
+        </tbody>
+    </table>
+    <br>
+</div>

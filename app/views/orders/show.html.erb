@@ -1,50 +1,47 @@
-<h1>Products</h1>
-<table>
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Description</th>
-      <th>Price</th>
-      <th>Purchasing price</th>
-      <th>Discount</th>
-      <th>Catagory</th>
-      <th>Rating</th>
-      <th>Quantity</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+<div class="container">
+    <table class="table table-dark">
+        <thead >
+            <tr>
+              <th>Title</th>
+              <th>Description</th>
+              <th>Price</th>
+              <th>Purchasing price</th>
+              <th>Discount</th>
+              <th>Catagory</th>
+              <th>Rating</th>
+              <th>Quantity</th>
+              <th colspan="3"></th>
+            </tr>
+        </thead>
+        <tbody>
+          <% @order_products.each do |op| %>
+            <tr>
+              <td><%= op.product.title %></td>
+              <td><%= op.product.description %></td>
+              <td><%= op.product.price %></td>
+              <td><%= op.product.purchasing_price %></td>
+              <td><%= op.product.discount %></td>
+              <td><%= op.product.catagory %></td>
+              <td><%= op.product.rating %></td>
+              <td><%= op.quantity%></td>
+            </tr>
+          <% end %>
+        </tbody>
+    </table>
+    <br>
 
-  <tbody>
-    <% @order_products.each do |op| %>
-      <tr>
-        <td><%= op.product.title %></td>
-        <td><%= op.product.description %></td>
-        <td><%= op.product.price %></td>
-        <td><%= op.product.purchasing_price %></td>
-        <td><%= op.product.discount %></td>
-        <td><%= op.product.catagory %></td>
-        <td><%= op.product.rating %></td>
-        <td><%= op.quantity%></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+    <p>
+        <strong>Total:</strong>
+        <%= @order.total %>
+      </p>
 
+      <p>
+        <strong>Status:</strong>
+        <%= @order.status %>
+      </p>
+      <%= link_to 'Back', root_url %>
+      <% if @order.status == 'paid' %>
+         | <%= link_to 'Ship Order', ship_order_path(id: @order.id),method: :post %>
+      <% end %>
 
-<p>
-  <strong>Total:</strong>
-  <%= @order.total %>
-</p>
-
-<p>
-  <strong>Status:</strong>
-  <%= @order.status %>
-</p>
-
-<p>
-  <strong>User:</strong>
-  <%= @order.user %>
-</p>
-
-<%= link_to 'Edit', edit_order_path(@order) %> |
-<%= link_to 'Back', orders_path %>
+</div>

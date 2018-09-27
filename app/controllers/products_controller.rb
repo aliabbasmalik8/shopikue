@@ -5,6 +5,10 @@ class ProductsController < ApplicationController
   # GET /products.json
   def index
     @products = Product.all.includes(:images)
+    @paid_orders = Order.where(status: 1)
+    @fulfilled_orders = Order.where(status: 2)
+    
+    @users = User.all
   end
 
   # GET /products/1
@@ -78,5 +82,4 @@ class ProductsController < ApplicationController
   def product_params
     params.require(:product).permit(:title, :description, :price, :purchasing_price, :discount, :catagory, :rating)
   end
-
 end

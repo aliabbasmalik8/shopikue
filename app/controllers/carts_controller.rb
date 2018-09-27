@@ -22,7 +22,7 @@ class CartsController < ApplicationController
 
   # GET /order_products/1
   # GET /order_products/1.json
-  def show? ; end
+  def show?; end
 
   # GET /order_products/new
   def new

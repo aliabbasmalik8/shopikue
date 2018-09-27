@@ -11,7 +11,6 @@ $(document).on 'turbolinks:load', ->
             type: 'POST'
             dataType: 'json'
             data: rate: this.value).done((data, textStatus, jqXHR) ->
-            console.log 'Success: ' + data
             return
         ).fail((jqXHR, textStatus, errorThrown) ->
             console.log 'Error'

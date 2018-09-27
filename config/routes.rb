@@ -25,6 +25,8 @@ Rails.application.routes.draw do
 
   post 'orders/:product_id/user_rate', to: 'orders#user_rate', as: :user_rate
 
+  post 'orders/:id/ship_order', to: 'orders#ship_order', as: :ship_order
+
   post '/images/update_user_image', to: 'images#update_user_image', as: :update_user_image
   # charges routes
   get 'payments/new', to: 'payments#new', as: :new_charge

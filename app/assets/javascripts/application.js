@@ -18,6 +18,7 @@
 //= require popper
 //= require bootstrap-sprockets
 //= require carts
+//= require comments
 $( document ).on('turbolinks:load', function() {
     setTimeout(function(){
       $('#flash').remove();

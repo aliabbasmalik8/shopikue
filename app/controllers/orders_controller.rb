@@ -2,7 +2,7 @@
 
 # order controller
 class OrdersController < ApplicationController
-  before_action :set_order, only: [:show, :edit, :update, :destroy]
+  before_action :set_order, only: [:show, :edit, :update, :destroy, :ship_order]
 
   # GET /orders
   # GET /orders.json
@@ -95,7 +95,7 @@ class OrdersController < ApplicationController
       Order.add_to_cart(params[:product_id],params[:quantity], current_user)
     end
     respond_to do |format|
-      format.html {redirect_to carts_url, notice: 'Add to cart Successfully.'}
+      format.html { redirect_to carts_url, notice: 'Add to cart Successfully.' }
     end
   end
 
@@ -109,7 +109,6 @@ class OrdersController < ApplicationController
     else
       @product.ratings.create!(rate: params[:rate], user_id: current_user.id)
     end
-    @avg_rating = @product.ratings.average(:rate)
     respond_to do |format|
       format.js {}
       format.json { render json: @avg_rating, status: :ok }
@@ -121,6 +120,13 @@ class OrdersController < ApplicationController
     @rate = @product.ratings.where(user_id: current_user.id).pluck(:rate)
     respond_to do |format|
       format.json { render json: @rate, status: :ok }
+    end
+  end
+
+  def ship_order
+    @order.update(status: 2)
+    respond_to do |format|
+      format.html { redirect_to root_url, notice: 'Order Shipped.'}
     end
   end
 

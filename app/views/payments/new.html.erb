@@ -1,7 +1,7 @@
 <%= form_tag charges_path do |f| %>
   <article>
     <label class="amount">
-        <span>Amountt: <%= params[:amount] %></span>
+        <span>Amountt: <%= @amount %></span>
     </label>
   </article>
 
@@ -13,7 +13,7 @@
       data-key="<%=  Rails.application.secrets.stripe_publishable_key %>"
       data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
       data-name="Matt's Widgets and Gizmos"
-      data-description="2 widgets ($<%= params[:amount] %>)"
+      data-description="2 widgets ($<%= @amount %>)"
       data-amount="<%= params[:amount] %>"
       data-billingAddress="true"
       data-shippingAddress="true">

@@ -1,5 +1,10 @@
 <% if current_user && current_user.role=='admin'%>
-  <%= render 'admin_panel' %>
+  <div class="container-fluid" style="background: #404040;">
+    <%= render 'admin_panel' %>
+    <%= render 'orders/paid_order' %>
+    <%= render 'orders/fulfilled_order' %>
+    <%= render 'users' %>
+  </div>
 <% else %>
   <%= render 'customer_panel' %>
 <% end %>

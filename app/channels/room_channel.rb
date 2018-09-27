@@ -1,6 +1,9 @@
+# frozen_string_literal: true
+
+# Room channel
 class RoomChannel < ApplicationCable::Channel
   def subscribed
-    stream_from "room_channel"
+    stream_from 'room_channel'
   end
 
   def unsubscribed
@@ -17,7 +20,6 @@ class RoomChannel < ApplicationCable::Channel
     CommentBroadcastJob.perform_later comment
   end
 
-
   def update(data)
     comment = Comment.find(data['comment_id'])
     comment.update(body: data['comment'])
@@ -27,5 +29,4 @@ class RoomChannel < ApplicationCable::Channel
   def destroy(data)
     CommentDeleteBroadcastJob.perform_later data['comment_id']
   end
-
 end

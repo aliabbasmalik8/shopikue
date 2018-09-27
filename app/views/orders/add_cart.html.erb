@@ -33,11 +33,16 @@
       <h1><%= @product.title %></h1>
       <div class="well"><%= @product.description %></div>
       <div><strong>Price:</strong> <%= @product.price%></div>
-      <div>
-        <% i=@product.ratings.average(:rate).to_i %>
-        <% while i>0 %>
-          <i class="fa fa-star"></i>
-          <% i=i-1 %>
+      <div id="rate_for_product_<%= @product.id %>">
+        <% count=@product.ratings.average(:rate).to_i %>
+        <% i=1 %>
+        <% while i <= count %>
+          <span id="s_<%= i %>" class=""><i class="fa fa-star"></i></span>
+          <% i = i + 1 %>
+        <% end %>
+        <% while i <= 5 %>
+          <span id="s_<%= i %>" class="hidden"><i class="fa fa-star"></i></span>
+          <% i = i + 1 %>
         <% end %>
       </div>
       <br>
