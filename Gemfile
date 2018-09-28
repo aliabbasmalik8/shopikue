@@ -70,3 +70,4 @@ gem "popper"
 gem 'glyphicons-rails'
 gem 'stripe'
 gem 'pundit', '~> 2.0'
+gem 'paranoia', '~> 2.1', '>= 2.1.5'

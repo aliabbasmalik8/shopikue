@@ -143,6 +143,8 @@ GEM
     octokit (4.12.0)
       sawyer (~> 0.8.0, >= 0.5.3)
     orm_adapter (0.5.0)
+    paranoia (2.4.1)
+      activerecord (>= 4.0, < 5.3)
     parslet (1.8.2)
     popper (0.4.2)
       bundler
@@ -271,6 +273,7 @@ DEPENDENCIES
   jquery-rails
   listen (>= 3.0.5, < 3.2)
   mini_magick (~> 4.8)
+  paranoia (~> 2.1, >= 2.1.5)
   popper
   puma (~> 3.11)
   pundit (~> 2.0)

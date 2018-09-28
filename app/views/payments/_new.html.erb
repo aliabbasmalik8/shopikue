@@ -3,7 +3,7 @@
     
   <form action="/charge" method="POST">
     <script
-      src="https://checkout.stripe.com/checkout.js"
+      src="https://checkout.stripe.com/checkout.js" class="stripe-button"
       data-key="<%=  Rails.application.secrets.stripe_publishable_key %>"
       data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
       data-name="Shopikuo Order Payment"

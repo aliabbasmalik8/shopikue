@@ -3,8 +3,9 @@
     <div class="card" id="comment-card" >
       <div class="card-body">
         <div class="well"  style="display: inline;">
-          <%= image_tag(root.user.image.to_s,:align=>"middle",class: 'card-img-top',style:"height:30px; width:30px") %>
-          <span id="comment_card_<%= root.id %>">
+          <%= image_tag(root.user.image.to_s,:align=>"middle",class: 'card-img-top',style:"height:35px; width:35px") %>
+          <span id="comment_card_<%= root.id %>" class="comment_font">
+            &nbsp;
             <%= root.body %>
           </span>
           <div style="display: inline;" class="float-right" >

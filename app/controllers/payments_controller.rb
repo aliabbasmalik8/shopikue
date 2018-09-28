@@ -4,6 +4,8 @@
 class PaymentsController < ApplicationController
   def new
     @amount = Payment.total_amount(current_user.id)
+    @widgets_count = Payment.widgets_count(current_user.id)
+    @email = current_user.email
   end
 
   def create

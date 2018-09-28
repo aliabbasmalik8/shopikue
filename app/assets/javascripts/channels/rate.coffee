@@ -6,10 +6,6 @@ App.rate = App.cable.subscriptions.create "RateChannel",
     # Called when the subscription has been terminated by the server
 
   received: (data) ->
-    console.log '----------------------------'
-    console.log data.product_rating
-    console.log '----------------------------'
-    console.log data.product_id
     i = 1
     count = data.product_rating
     while i<= count
@@ -20,5 +16,5 @@ App.rate = App.cable.subscriptions.create "RateChannel",
       i = i + 1
     # Called when there's incoming data on the websocket for this channel
 
-  speak: ->
-    @perform 'speak'
+  speak: (data)->
+    @perform 'speak', data[0]

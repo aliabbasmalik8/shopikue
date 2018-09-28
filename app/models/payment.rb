@@ -9,4 +9,11 @@ class Payment
         order = Order.find(order_id)
         order[0].update(status: 1, total: amount)
     end
+
+    def self.widgets_count(user_id)
+        order_id = Order.where(user_id: user_id, status: 0).ids
+        @widgets_count = OrderProduct.where(order_id: order_id).count
+       
+    end
+
 end

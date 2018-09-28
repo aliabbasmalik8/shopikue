@@ -7,6 +7,9 @@ class CartsController < ApplicationController
     if current_user
       order_id = Order.where(user_id: current_user.id, status: 0).ids
       @carts = OrderProduct.where(order_id: order_id).includes(product: :images)
+      @amount = Payment.total_amount(current_user.id)
+      @widgets_count = Payment.widgets_count(current_user.id)
+      @email = current_user.email
     else
       @order_products = []
       unless cookies[:add_to_cart].nil?

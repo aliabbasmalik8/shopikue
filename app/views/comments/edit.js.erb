@@ -1,5 +1,5 @@
 $('.edit_comment').off().bind('ajax:success', function() {
-     if(!$("#child_form_<%= @comment.id %>").length){
+    if(!$("#child_form_<%= @comment.id %>").length){
         $(this).first().closest('#comment-card').append('<%= j render partial: 'edit' %>')    
-     }
+    }
 });

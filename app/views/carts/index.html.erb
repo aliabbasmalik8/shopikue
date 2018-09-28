@@ -79,9 +79,13 @@
         <td colspan="2" class="hidden-xs"></td>
         <td class="hidden-xs text-center"><strong>Total $<%= order_total.to_i%></strong></td>
         <td>
-          <%= link_to new_charge_path do %>
+        <% if user_signed_in? %>
+          <%= render 'payments/new' %>
+        <% else %>
+          <%= link_to new_user_registration_path do %>
               <button class="btn btn-success"><i class="fa fa-angle-right"></i> Checkout</button>
           <% end %>
+        <% end %>
         </td>
       </tr>
     </tfoot>

@@ -109,9 +109,10 @@ class OrdersController < ApplicationController
     else
       @product.ratings.create!(rate: params[:rate], user_id: current_user.id)
     end
+    @avg_rating = @product.ratings.average(:rate).to_i
     respond_to do |format|
       format.js {}
-      format.json { render json: @avg_rating, status: :ok }
+      format.json { render json: [avg_rating: @avg_rating, product_id: params[:product_id]], status: :ok }
     end
   end
 
