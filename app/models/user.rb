@@ -22,8 +22,7 @@ class User < ApplicationRecord
     end
   end
 
-  def is_admin
-    role =='admin'
+  def admin
+    role.eql? 'admin'
   end
-  
 end

@@ -5,11 +5,11 @@ class ProductPolicy < ApplicationPolicy
     end
   
     def show?
-        @user.is_admin
+        @user.admin
     end
   
     def create?
-        @user.is_admin
+        @user.admin
     end
   
     def new?
@@ -17,7 +17,7 @@ class ProductPolicy < ApplicationPolicy
     end
   
     def update?
-        @user.is_admin
+        @user.admin
     end
   
     def edit?
@@ -25,7 +25,7 @@ class ProductPolicy < ApplicationPolicy
     end
   
     def destroy?
-        @user.is_admin
+        @user.admin
     end
 
 end

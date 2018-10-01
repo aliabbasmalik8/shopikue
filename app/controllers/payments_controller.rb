@@ -22,10 +22,39 @@ class PaymentsController < ApplicationController
       currency:   'usd'
     )
     if @charge.paid
-      Payment.update_order_status(current_user.id, @amount/100)
+      Payment.update_order_status(current_user.id, @amount / 100)
+      initialize_params
     end
-    rescue Stripe::CardError => e
-      flash[:error] = e.message
-      redirect_to new_charge_path
+  rescue Stripe::CardError => e
+    flash[:error] = e.message
+    redirect_to new_charge_path
+  end
+
+  private
+
+  def initialize_params
+    @email = params[:stripeEmail]
+    initialize_billing_address
+    initialize_shipping_address
+  end
+
+  def initialize_billing_address
+    @billing_name = params[:stripeBillingName]
+    @billing_country = params[:stripeBillingAddressCountry]
+    @billing_country_code = params[:stripeBillingAddressCountryCode]
+    @billing_address_zip_code = params[:stripeBillingAddressZip]
+    @billing_address = params[:stripeBillingAddressLine1]
+    @billing_state = params[:stripeBillingAddressCity]
+    @billing_city = params[:stripeBillingAddressState]
+  end
+
+  def initialize_shipping_address
+    @shipping_name = params[:stripeShippingName]
+    @shipping_country = params[:stripeShippingAddressCountry]
+    @shipping_country_code = params[:stripeShippingAddressCountryCode]
+    @shipping_address_zip_code = params[:stripeShippingAddressZip]
+    @shipping_address = params[:stripeShippingAddressLine1]
+    @shipping_state = params[:stripeShippingAddressCity]
+    @shipping_city = params[:stripeShippingAddressState]
   end
 end

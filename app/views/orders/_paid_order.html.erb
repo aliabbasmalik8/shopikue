@@ -1,9 +1,8 @@
-<div class="container">
+<div class="table-responsive">
     <table class="table table-dark">
         <thead >
             <tr>
                 <th>Order Id</th>
-                <th>User Email</th>
                 <th>Total</th>
                 <th colspan="1"></th>
             </tr>
@@ -12,12 +11,12 @@
             <% @paid_orders.each do |order| %>
                 <tr>
                     <td><%= order.id %></td>
-                    <td><%= order.user.email %></td>
                     <td><%= order.total %></td>
                     <td><%= link_to 'Show', order_path(id: order.id) %></td>
                 </tr>
             <% end %>
         </tbody>
     </table>
+    <%= will_paginate @paid_orders, renderer: BootstrapPagination::Rails, remote: true, param_name: 'paid_order_order' %>
     <br>
 </div>

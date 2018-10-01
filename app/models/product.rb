@@ -7,7 +7,8 @@ class Product < ApplicationRecord
     acts_as_paranoid
 
     validates :title, :description, :price, :purchasing_price, :discount, :catagory , presence: true
-    validates :price, :purchasing_price, :discount, format: { with: /\A\d+\z/, message: "Integer only. No sign allowed." }
+    # validates :price, :purchasing_price, :discount, format: { with: /\A\d+\z/, message: "Integer only. No sign allowed." }
+    validates :price, :purchasing_price, :discount, numericality: { only_integer: true }
 
     def first_image
         if images.any?

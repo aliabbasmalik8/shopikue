@@ -1,22 +1,26 @@
-<table>
+<table class='table'>
   <thead>
     <tr>
       <th>Image</th>
       <th colspan="3"></th>
     </tr>
   </thead>
-
   <tbody>
     <% @images.each do |image| %>
       <tr>
-        <td><%= image_tag(image.image.to_s, width:'50x', :align=>'middle') %></td>
+        <td><%= image_tag(image.image.to_s, width:'80x', :align=>'middle') %></td>
         <td><%= link_to 'Edit', edit_product_image_path(@imageable,image) %></td>
         <td><%= link_to 'Destroy', product_image_path(@imageable,image), method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
-
-<br>
-
-<%= link_to 'New Image', [:new, @imageable, :image] %>
+<div class="container">
+  <h5>Add Image</h5>
+  <%= form_with(model: [@imageable,@image], local: true) do |form| %>
+    <div class="field form-group">
+      <%= form.file_field :image %>
+      <%= form.submit class: 'btn' %>
+    </div>
+  <% end %>
+</div>

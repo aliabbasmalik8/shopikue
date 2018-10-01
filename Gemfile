@@ -70,4 +70,5 @@ gem "popper"
 gem 'glyphicons-rails'
 gem 'stripe'
 gem 'pundit', '~> 2.0'
-gem 'paranoia', '~> 2.1', '>= 2.1.5'
+gem 'paranoia', '~> 2.1', '>= 2.1.5'  
+gem 'will_paginate-bootstrap', '~> 1.0', '>= 1.0.1'

@@ -1,13 +1,14 @@
 class ProductsController < ApplicationController
   before_action :set_product, only: [:show, :edit, :update, :destroy]
   # after_action :verify_authorized, except: :index
+
   # GET /products
   # GET /products.json
   def index
-    @products = Product.without_deleted.includes(:images)
-    @paid_orders = Order.where(status: 1)
-    @fulfilled_orders = Order.where(status: 2)
-    @users = User.all
+    @products = Product.without_deleted.includes(:images).paginate(page: params[:product_page], per_page: 4)
+    @paid_orders = Order.where(status: 1).paginate(page: params[:paid_order_order], per_page: 4)
+    @fulfilled_orders = Order.where(status: 2).paginate(page: params[:fulfilled_orde_page], per_page: 4)
+    @users = User.all.paginate(page: params[:user_page], per_page: 4)
   end
 
   # GET /products/1
@@ -16,13 +17,12 @@ class ProductsController < ApplicationController
     @imageable = @product
     @images = @imageable.images
     @image = Image.new
-    # authorize @product
   end
 
   # GET /products/new
   def new
     @product = Product.new
-    # authorize @product
+    authorize @product
   end
 
   # GET /products/1/edit
@@ -33,7 +33,7 @@ class ProductsController < ApplicationController
   # POST /products.json
   def create
     @product = Product.new(product_params)
-    # authorize @product
+    authorize @product
     respond_to do |format|
       if @product.save
         format.html { redirect_to @product, notice: 'Product was successfully created.' }
@@ -48,7 +48,6 @@ class ProductsController < ApplicationController
   # PATCH/PUT /products/1
   # PATCH/PUT /products/1.json
   def update
-    # authorize @product
     respond_to do |format|
       if @product.update(product_params)
         format.html { redirect_to @product, notice: 'Product was successfully updated.' }
@@ -64,7 +63,6 @@ class ProductsController < ApplicationController
   # DELETE /products/1.json
   def destroy
     @product.destroy
-    # authorize @product
     respond_to do |format|
       format.html { redirect_to products_url, notice: 'Product was successfully destroyed.' }
       format.json { head :no_content }
@@ -76,6 +74,7 @@ class ProductsController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_product
     @product = Product.find(params[:id])
+    authorize @product
   end
   # Never trust parameters from the scary internet, only allow the white list through.
   def product_params

@@ -1,7 +1,8 @@
 <div class="container">
+  <br><h1>Shopping Cart</h1><br>
   <table id="cart" class="table table-hover table-condensed">
     <thead>
-      <tr>
+      <tr class="table-secondary">
         <th style="width:55%">Product</th>
         <th style="width:10%">Price</th>
         <th style="width:8%">Quantity</th>
@@ -70,17 +71,18 @@
       <% end %>
     </tbody>
     <tfoot>
-      <tr>
+      <tr class="table-warning">
         <td>
           <%= link_to products_path do %>
             <button class="btn btn-warning"><i class="fa fa-angle-left"></i> Continue Shopping</button>
           <% end %>
         </td>
         <td colspan="2" class="hidden-xs"></td>
-        <td class="hidden-xs text-center"><strong>Total $<%= order_total.to_i%></strong></td>
+        <td class="hidden-xs text-center"><strong>Total: </strong> $<%= order_total.to_i%></td>
         <td>
-        <% if user_signed_in? %>
+        <% if user_signed_in? && OrderProduct.order_exist(current_user.id) %>
           <%= render 'payments/new' %>
+        <% elsif user_signed_in? %>
         <% else %>
           <%= link_to new_user_registration_path do %>
               <button class="btn btn-success"><i class="fa fa-angle-right"></i> Checkout</button>

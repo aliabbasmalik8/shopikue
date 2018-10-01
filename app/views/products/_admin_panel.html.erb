@@ -1,5 +1,5 @@
-<div class="container">
-    <table class="table table-dark">
+<div class="table-responsive" id="products">
+    <table class="table table-dark ">
         <thead >
             <tr>
                 <th>Title</th>
@@ -31,6 +31,6 @@
             <% end %>
         </tbody>
     </table>
-    <br>
-    <%= link_to 'New Product', new_product_path , class: "btn btn-default"%>
+    <%= will_paginate @products, renderer: BootstrapPagination::Rails, remote: true, param_name: 'product_page', class: 'justify-content-center' %>
+    <%= link_to 'New Product', new_product_path , class: "btn"%>
 </div>
