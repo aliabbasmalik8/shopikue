@@ -36,7 +36,6 @@ App.room = App.cable.subscriptions.create "RoomChannel",
             return
         type: 'POST'
         data: comment_id: comment_id, product_id: product_id).done((data, textStatus, jqXHR) ->
-        console.log 'Success: ' + data
         return
     ).fail((jqXHR, textStatus, errorThrown) ->
         console.log 'Error'
@@ -50,7 +49,6 @@ $(document).on 'keypress', '[data-behavior~=room_speaker]',(event) ->
     user_id=elem.data('user_id')
     product_id=elem.data('product_id')
     ancestry= elem.data('ancestry')
-    console.log(product_id)
     App.room.speak event.target.value, user_id, product_id, ancestry
     event.target.value = ''
     event.preventDefault()

@@ -58,7 +58,9 @@
       <% end %>
       
       <% if user_signed_in? %>
-        <%= render partial: 'rating' %>
+        <div id="product_rating" class="product_rating">
+          <%= render partial: 'rating' %>
+        </div>
       <% end %>
     
     </div>

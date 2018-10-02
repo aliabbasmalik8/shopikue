@@ -1,5 +1,6 @@
+<h1>Fullfilled Orders</h1>
 <div class="table-responsive">
-    <table class="table table-dark">
+    <table class="table table-hover">
         <thead >
             <tr>
                 <th>Order Id</th>
@@ -19,6 +20,6 @@
             <% end %>
         </tbody>
     </table>
-    <%= will_paginate @fulfilled_orders, renderer: BootstrapPagination::Rails, remote: true, param_name: 'fulfilled_orde_page' %>
+    <%= will_paginate @fulfilled_orders, renderer: BootstrapPagination::Rails, remote: true, param_name: 'fulfilled_orde_page', class: 'justify-content-center' %>
     <br>
 </div>

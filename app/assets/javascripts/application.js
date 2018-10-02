@@ -20,7 +20,5 @@
 //= require carts
 //= require comments
 $( document ).on('turbolinks:load', function() {
-    setTimeout(function(){
-      $('#flash').remove();
-    }, 3000);
+  $('#flash').fadeOut(3000);
 })

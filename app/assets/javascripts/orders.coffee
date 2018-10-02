@@ -2,7 +2,7 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 $(document).on 'turbolinks:load', ->
-    $('input:radio').change ->
+    $('#product_rating input:radio').change ->
         $.ajax(
             url: 'add_rating'
             beforeSend: (xhr) ->
@@ -29,7 +29,7 @@ $(document).on 'turbolinks:load', ->
             type: 'POST'
             dataType: 'json'
             ).done((data, textStatus, jqXHR) ->
-            $( 'input#star_'+data ).prop("checked", true);
+            $( '#product_rating input#star_'+data ).prop("checked", true);
             return
         ).fail((jqXHR, textStatus, errorThrown) ->
             console.log 'Error'

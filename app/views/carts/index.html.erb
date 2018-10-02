@@ -80,7 +80,7 @@
         <td colspan="2" class="hidden-xs"></td>
         <td class="hidden-xs text-center"><strong>Total: </strong> $<%= order_total.to_i%></td>
         <td>
-        <% if user_signed_in? && OrderProduct.order_exist(current_user.id) %>
+        <% if user_signed_in? and OrderProduct.order_exist(current_user.id) %>
           <%= render 'payments/new' %>
         <% elsif user_signed_in? %>
         <% else %>

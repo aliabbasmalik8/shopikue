@@ -7,6 +7,9 @@ class Comment < ApplicationRecord
   belongs_to :product
   has_many :ratings, as: :rateable
 
+  validates :body, presence: true
+
+
   scope :root, -> { where(ancestry: nil) }
   scope :children_of_root, ->(root_id) { where(ancestry: root_id.to_s) }
 

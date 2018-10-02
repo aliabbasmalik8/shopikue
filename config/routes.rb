@@ -11,6 +11,8 @@ Rails.application.routes.draw do
     resources :comments
   end
 
+  # post 'products/:search_value/search', to: 'products#search', as: :search
+
   devise_for :users, controllers: {
     sessions: 'users/sessions'
   }

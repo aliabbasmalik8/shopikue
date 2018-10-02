@@ -5,11 +5,19 @@ class ProductsController < ApplicationController
   # GET /products
   # GET /products.json
   def index
-    @products = Product.without_deleted.includes(:images).paginate(page: params[:product_page], per_page: 4)
-    @paid_orders = Order.where(status: 1).paginate(page: params[:paid_order_order], per_page: 4)
-    @fulfilled_orders = Order.where(status: 2).paginate(page: params[:fulfilled_orde_page], per_page: 4)
-    @users = User.all.paginate(page: params[:user_page], per_page: 4)
+    if current_user&.role.eql? 'admin'
+      @products = Product.without_deleted.includes(:images).paginate(page: params[:product_page], per_page: 10)
+      @paid_orders = Order.where(status: 1).paginate(page: params[:paid_order_order], per_page: 10)
+      @fulfilled_orders = Order.where(status: 2).paginate(page: params[:fulfilled_orde_page], per_page: 10)
+      @users = User.all.paginate(page: params[:user_page], per_page: 10)
+    else
+      @products = Product.without_deleted.includes(:images)
+    end
   end
+
+  # def search
+  #   @products = Product.where(title: params[:search_value]).without_deleted.includes(:images)
+  # end
 
   # GET /products/1
   # GET /products/1.json
