@@ -16,9 +16,6 @@ Rails.application.routes.draw do
   devise_for :users, controllers: {
     sessions: 'users/sessions'
   }
-  authenticated do
-    root to: 'secret#index', as: :authenticated_root
-  end
   post '/rate' => 'rater#create', :as => 'rate'
   get 'orders/:product_id/add_cart', to: 'orders#add_cart', as: :add_cart
   post 'orders/:product_id/add_to_cart', to: 'orders#add_to_cart', as: :add_to_cart
