@@ -61,6 +61,7 @@ group :test do
   gem 'chromedriver-helper'
   gem 'shoulda-matchers', '~> 3.1', '>= 3.1.2', require: false
   gem 'database_cleaner', '~> 1.7'
+  gem 'simplecov', '~> 0.16.1', require: false
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
