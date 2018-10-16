@@ -66,9 +66,9 @@ Rails.application.configure do
   config.action_mailer.perform_deliveries = true
   config.action_mailer.raise_delivery_errors = true
 
-  ActionMailer::Base.smtp_settings={
+  ActionMailer::Base.smtp_settings = {
     :address => 'smtp.gmail.com',
-    :domain => 'gmail.com',
+    :domain => 'localhost:3000',
     :port => 587,
     :user_name => 'androediot@gmail.com',
     :password => '12345678ASD',
