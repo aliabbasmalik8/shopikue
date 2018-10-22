@@ -1,0 +1,30 @@
+<br><br>
+<h2 style="text-align: center">Registrations</h2>
+
+<div class="container">
+  <form>
+    <div class="form-group">
+      <label>Email</label>
+      <input type="email" class="form-control" name="email">
+    </div>
+
+    <div class="form-group">
+      <label>Password</label>
+      <input type="password" class="form-control" name="password" ngModel required>
+      <div>
+        Password is required
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Confirm password</label>
+      <input type="password" class="form-control" name="passwordConfirm" ngModel required appCompareValidator="password">
+    </div>
+
+    <div class=form-group>
+      <a class="btn btn-secondary form-control">Sign Up</a>
+    </div>
+  </form>
+</div>
+
+

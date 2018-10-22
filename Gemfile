@@ -80,3 +80,6 @@ gem 'paranoia', '~> 2.1', '>= 2.1.5'
 gem 'will_paginate-bootstrap', '~> 1.0', '>= 1.0.1'
 gem 'faker', '~> 1.9', '>= 1.9.1'
 gem 'rubocop-rspec', '~> 1.29', '>= 1.29.1'
+
+# Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
+gem 'rack-cors'
